@@ -30,7 +30,13 @@ class GigList extends Component {
       return NotFound;
     }
 
-    return <div>{_.map(this.props.gigs, elem => elem.title)}</div>;
+    return (
+      <div>
+        {_.map(this.props.gigs, elem => {
+          return <p>{elem.title}</p>;
+        })}
+      </div>
+    );
   }
 }
 

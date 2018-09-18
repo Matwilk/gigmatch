@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, NavLink } from 'react-router-dom';
 import logo from './logo.svg';
 import GigDetail from './containers/GigDetail';
 import GigList from './containers/GigList';
@@ -12,7 +12,9 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to Reacty</h1>
+          <NavLink className="App-title" to="/gigs" activeClassName="selected">
+            Gigs
+          </NavLink>
         </header>
         <Switch>
           <Route path="/gig/:id" component={GigDetail} />
