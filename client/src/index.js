@@ -7,9 +7,9 @@ import './index.css';
 import reducers from './reducers';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import promise from 'redux-promise';
+import thunk from 'redux-thunk';
 
-const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 const store = createStoreWithMiddleware(reducers);
 
 ReactDOM.render(

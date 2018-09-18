@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import logo from './logo.svg';
 import GigDetail from './containers/GigDetail';
+import GigList from './containers/GigList';
 
 import './App.css';
 
@@ -15,6 +16,7 @@ class App extends Component {
         </header>
         <Switch>
           <Route path="/gig/:id" component={GigDetail} />
+          <Route path="/gigs" component={GigList} />
         </Switch>
       </div>
     );

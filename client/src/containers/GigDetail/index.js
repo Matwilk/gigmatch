@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import { fetchGig } from '../../actions';
+import NotFound from '../../components/NotFound';
+import Loading from '../../components/Loading';
 
 class GigDetail extends Component {
   /**
@@ -10,6 +13,7 @@ class GigDetail extends Component {
   static propTypes = {
     fetchGig: PropTypes.func,
     gig: PropTypes.object,
+    code: PropTypes.number,
     match: PropTypes.object
   };
 
@@ -18,10 +22,12 @@ class GigDetail extends Component {
   }
 
   render() {
-    console.log(this.props);
+    if (this.props.code === 404) {
+      return NotFound;
+    }
 
     if (!this.props.gig) {
-      return null;
+      return Loading;
     }
 
     //console.log('render', this.props);
@@ -39,6 +45,7 @@ class GigDetail extends Component {
 function mapStateToProps({ gigs }, ourProps) {
   //console.log('mapStateToProps', gigs);
   return {
+    code: gigs.code,
     gig: gigs[ourProps.match.params.id]
   };
 }
