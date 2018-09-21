@@ -6,6 +6,7 @@ import _ from 'lodash';
 import { fetchGigs } from '../../actions';
 import NotFound from '../../components/NotFound';
 import Loading from '../../components/Loading';
+import GigTeaser from '../../components/GigTeaser';
 
 class GigList extends Component {
   /**
@@ -32,16 +33,21 @@ class GigList extends Component {
 
     return (
       <div>
-        {_.map(this.props.gigs, elem => {
-          return <p>{elem.title}</p>;
-        })}
+        <ul>
+          {_.map(this.props.gigs.list, elem => {
+            return (
+              <li key={elem._id}>
+                <GigTeaser gig={elem} />
+              </li>
+            );
+          })}
+        </ul>
       </div>
     );
   }
 }
 
 function mapStateToProps({ gigs }) {
-  //console.log('mapStateToProps', gigs);
   return {
     gigs
   };

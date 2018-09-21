@@ -46,7 +46,7 @@ function mapStateToProps({ gigs }, ourProps) {
   //console.log('mapStateToProps', gigs);
   return {
     code: gigs.code,
-    gig: gigs[ourProps.match.params.id]
+    gig: gigs.list[ourProps.match.params.id]
   };
 }
 

@@ -6,7 +6,9 @@ import {
   FETCH_GIG_RESULT
 } from '../../actions';
 
-export default function(state = {}, action) {
+export default function(state = { list: {} }, action) {
+  let newState = {};
+
   switch (action.type) {
     // case DELETE_POST:
     //   return _.omit(state, action.payload);
@@ -15,11 +17,19 @@ export default function(state = {}, action) {
     case FETCHING_GIGS:
       return {};
     case FETCH_GIGS_RESULT:
-      return { ..._.mapKeys(action.data.data, '_id'), code: action.code };
+      return {
+        list: { ..._.mapKeys(action.data.data, '_id') },
+        code: action.code
+      };
     case FETCHING_GIG:
-      return { ...state, [action.id]: null };
+      newState = { ...state };
+      newState.list[action.id] = null;
+      return newState;
     case FETCH_GIG_RESULT:
-      return { ...state, code: action.code, [action.id]: action.data.data };
+      newState = { ...state };
+      newState.code = action.code;
+      newState.list[action.id] = action.data.data;
+      return newState;
     default:
       return state;
   }
