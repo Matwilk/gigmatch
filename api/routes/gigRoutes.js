@@ -2,6 +2,7 @@
 
 module.exports = function(app) {
   const gigs = require('../controllers/gigController');
+  const es = require('../controllers/esController');
 
   // todoList Routes
   app
@@ -14,4 +15,6 @@ module.exports = function(app) {
     .get(gigs.read_a_gig)
     .put(gigs.update_a_gig)
     .delete(gigs.delete_a_gig);
+
+  app.route('/index/gigs').get(es.indexGigs);
 };

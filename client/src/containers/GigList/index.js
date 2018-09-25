@@ -33,15 +33,9 @@ class GigList extends Component {
 
     return (
       <div>
-        <ul>
-          {_.map(this.props.gigs.list, elem => {
-            return (
-              <li key={elem._id}>
-                <GigTeaser gig={elem} />
-              </li>
-            );
-          })}
-        </ul>
+        {_.map(this.props.gigs.list, elem => {
+          return <GigTeaser gig={elem} />;
+        })}
       </div>
     );
   }

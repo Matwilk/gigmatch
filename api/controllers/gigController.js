@@ -13,6 +13,7 @@ exports.create_a_gig = function(req, res) {
   const new_gig = new Gig(req.body);
   new_gig.save(function(err, gig) {
     if (err) res.sendStatus(404);
+    res.status(200);
     res.json(gig);
   });
 };
@@ -20,6 +21,7 @@ exports.create_a_gig = function(req, res) {
 exports.read_a_gig = function(req, res) {
   Gig.findById(req.params.gigId, function(err, gig) {
     if (err) res.sendStatus(404);
+    res.status(200);
     res.json(gig);
   });
 };
@@ -31,6 +33,7 @@ exports.update_a_gig = function(req, res) {
     { new: true },
     function(err, gig) {
       if (err) res.sendStatus(404);
+      res.status(200);
       res.json(gig);
     }
   );
@@ -43,6 +46,7 @@ exports.delete_a_gig = function(req, res) {
     },
     function(err) {
       if (err) res.send(err);
+      res.status(200);
       res.json({ message: 'Gig successfully deleted' });
     }
   );
