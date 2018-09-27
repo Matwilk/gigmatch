@@ -16,6 +16,14 @@ var GigSchema = new Schema({
     type: String,
     required: 'Enter a location'
   },
+  lat: {
+    type: Number,
+    default: 50
+  },
+  long: {
+    type: Number,
+    default: 10
+  },
   date: {
     type: Date,
     required: 'Enter a date'

@@ -16,5 +16,7 @@ module.exports = function(app) {
     .put(gigs.update_a_gig)
     .delete(gigs.delete_a_gig);
 
-  app.route('/index/gigs').get(es.indexGigs);
+  app.route('/index/gigs/index').get(es.indexGigs);
+
+  app.route('/index/gigs/search').get(es.searchGigs);
 };

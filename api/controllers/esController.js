@@ -43,7 +43,11 @@ exports.indexGigs = function(req, res) {
               title: gig.title,
               fee: gig.fee,
               date: gig.date,
-              description: gig.description
+              description: gig.description,
+              location: {
+                lat: gig.lat,
+                lon: gig.long
+              }
             }
           },
           (err, resp) => {
@@ -68,4 +72,36 @@ exports.indexGigs = function(req, res) {
     .catch(err => {
       res.err(err);
     });
+};
+
+exports.searchGigs = function(req, res) {
+  const matches = Object.keys(req.query).reduce((acc, key) => {
+    const match = { match: {} };
+    match.match[key] = req.query[key];
+    acc.push(match);
+    return acc;
+  }, []);
+  console.log('matches', matches);
+  client
+    .search({
+      index: 'gigs',
+      type: 'gig',
+      body: {
+        query: {
+          bool: {
+            should: matches
+          }
+        }
+      }
+    })
+    .then(
+      function(resp) {
+        console.log(resp.hits);
+      },
+      function(err) {
+        console.trace(err.message);
+      }
+    );
+  res.status(204);
+  res.json({});
 };
