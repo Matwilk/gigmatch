@@ -1,13 +1,13 @@
 import _ from 'lodash';
 import {
   FETCHING_BANDS,
-  FETCH_BANDS_RESULT
-  // FETCHING_GIG,
-  // FETCH_GIG_RESULT
+  FETCH_BANDS_RESULT,
+  FETCHING_BAND,
+  FETCH_BAND_RESULT
 } from '../../actions';
 
 export default function(state = { list: {} }, action) {
-  //let newState = {};
+  let newState = {};
 
   switch (action.type) {
     // case DELETE_POST:
@@ -21,15 +21,15 @@ export default function(state = { list: {} }, action) {
         list: { ..._.mapKeys(action.data.data, '_id') },
         code: action.code
       };
-    // case FETCHING_GIG:
-    //   newState = { ...state };
-    //   newState.list[action.id] = null;
-    //   return newState;
-    // case FETCH_GIG_RESULT:
-    //   newState = { ...state };
-    //   newState.code = action.code;
-    //   newState.list[action.id] = action.data.data;
-    //   return newState;
+    case FETCHING_BAND:
+      newState = { ...state };
+      newState.list[action.id] = null;
+      return newState;
+    case FETCH_BAND_RESULT:
+      newState = { ...state };
+      newState.code = action.code;
+      newState.list[action.id] = action.data.data;
+      return newState;
     default:
       return state;
   }

@@ -1,50 +1,34 @@
 import axios from 'axios';
 
-export const FETCHING_GIG = 'FETCHING_GIG';
-export const FETCH_GIG_RESULT = 'FETCH_GIG_RESULT';
-
 const ROOT_URL = 'http://localhost:3001/api';
 //const API_KEY = "?key=PAPERCLIP1234";
 
-//export function fetchGig(id) {
-//const request = axios.get(`${ROOT_URL}/${id}`);
-//console.log('request', request);
+export function fetchSingle(id, type, fetchingAction, resultAction) {
+  function fetching() {
+    return {
+      type: fetchingAction,
+      id
+    };
+  }
 
-// return {
-//   type: FETCH_GIG,
-//   payload: request
-// };
-//}
+  function fetchingSingle(code, data) {
+    return {
+      type: resultAction,
+      id,
+      code,
+      data
+    };
+  }
 
-//import { FETCHING_DATA, FETCHING_DATA_SUCCESS, FETCHING_DATA_FAILURE } from './constants'
-//import getPeople from './api'
-
-export function getGig(id) {
-  return {
-    type: FETCHING_GIG,
-    id
-  };
-}
-
-export function getGigResult(id, code, data) {
-  return {
-    type: FETCH_GIG_RESULT,
-    id,
-    code,
-    data
-  };
-}
-
-export function fetchGig(id) {
   return dispatch => {
-    dispatch(getGig(id));
+    dispatch(fetching());
     axios
-      .get(`${ROOT_URL}/gig/${id}`)
+      .get(`${ROOT_URL}/${type}/${id}`)
       .then(data => {
-        dispatch(getGigResult(id, 200, data));
+        dispatch(fetchingSingle(200, data));
       })
       .catch(err => {
-        dispatch(getGigResult(id, err.response.status, {}));
+        dispatch(fetchingSingle(err.response.status, {}));
       });
   };
 }
@@ -52,37 +36,44 @@ export function fetchGig(id) {
 /////
 
 function fetchMultiple(type, fetchingAction, resultAction) {
-  const fetching = type => {
+  const fetching = () => {
     return {
-      type: type
+      type: fetchingAction
     };
   };
 
-  const fetchingMultiple = (type, code, data) => {
+  const fetchingMultiple = (code, data) => {
     return {
-      type: type,
+      type: resultAction,
       code,
       data
     };
   };
 
   return dispatch => {
-    dispatch(fetching(fetchingAction));
+    dispatch(fetching());
     axios
       .get(`${ROOT_URL}/${type}`)
       .then(data => {
-        dispatch(fetchingMultiple(resultAction, 200, data));
+        dispatch(fetchingMultiple(200, data));
       })
       .catch(err => {
-        dispatch(fetchingMultiple(resultAction, err.response.status, {}));
+        dispatch(fetchingMultiple(err.response.status, {}));
       });
   };
 }
 
 // Gigs
 
+export const FETCHING_GIG = 'FETCHING_GIG';
+export const FETCH_GIG_RESULT = 'FETCH_GIG_RESULT';
+
+export function fetchGig(id) {
+  return fetchSingle(id, 'gig', FETCHING_GIG, FETCH_GIG_RESULT);
+}
+
 export const FETCHING_GIGS = 'FETCHING_GIGS';
-export const FETCH_GIGS_RESULT = 'FETCH_GIGS_SUCCESS';
+export const FETCH_GIGS_RESULT = 'FETCH_GIGS_RESULT';
 
 export function fetchGigs() {
   return fetchMultiple('gig', FETCHING_GIGS, FETCH_GIGS_RESULT);
@@ -90,8 +81,15 @@ export function fetchGigs() {
 
 // Bands
 
+export const FETCHING_BAND = 'FETCHING_BAND';
+export const FETCH_BAND_RESULT = 'FETCH_BAND_RESULT';
+
+export function fetchBand(id) {
+  return fetchSingle(id, 'band', FETCHING_BAND, FETCH_BAND_RESULT);
+}
+
 export const FETCHING_BANDS = 'FETCHING_BANDS';
-export const FETCH_BANDS_RESULT = 'FETCH_BANDS_SUCCESS';
+export const FETCH_BANDS_RESULT = 'FETCH_BANDS_RESULT';
 
 export function fetchBands() {
   return fetchMultiple('band', FETCHING_BANDS, FETCH_BANDS_RESULT);

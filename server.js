@@ -4,6 +4,7 @@
 // Login/authenticate
 // CRUD via UI
 // UI library
+// Deploy remotel - remove hardcoded local urls
 
 import routes from './api/routes';
 const cors = require('cors');
