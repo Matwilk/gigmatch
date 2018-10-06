@@ -1,9 +1,8 @@
 'use strict';
 
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+import mongoose from 'mongoose';
 
-var GigSchema = new Schema({
+var GigSchema = new mongoose.Schema({
   title: {
     type: String,
     required: 'Enter a headline'

@@ -5,15 +5,13 @@
 // CRUD via UI
 // UI library
 
+import routes from './api/routes';
 const cors = require('cors');
 const express = require('express'),
   app = express(),
   { PORT = 3001 } = process.env,
   mongoose = require('mongoose'),
   bodyParser = require('body-parser');
-
-import { bandRouter } from './api/routes/bandRoutes';
-import { gigRouter } from './api/routes/gigRoutes';
 
 // const { CORS_WHITELIST_URL = 'http://localhost:3000' } = process.env;
 // const whitelist = Array(CORS_WHITELIST_URL);
@@ -36,9 +34,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// TODO: these need merging
-app.use('/api/gig', gigRouter);
-app.use('/api/band', bandRouter);
+app.use('/api', routes);
 
 app.listen(PORT);
 
