@@ -7,10 +7,6 @@ GigTeaser.propTypes = {
 };
 
 function GigTeaser(props) {
-  // if (!props || !props.gig) {
-  //   return null;
-  // }
-  console.log('GigTeaser', props);
   const { gig } = props;
 
   const link = '/gig/' + gig._id;

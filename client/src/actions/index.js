@@ -51,33 +51,48 @@ export function fetchGig(id) {
 
 /////
 
+function fetchMultiple(type, fetchingAction, resultAction) {
+  const fetching = type => {
+    return {
+      type: type
+    };
+  };
+
+  const fetchingMultiple = (type, code, data) => {
+    return {
+      type: type,
+      code,
+      data
+    };
+  };
+
+  return dispatch => {
+    dispatch(fetching(fetchingAction));
+    axios
+      .get(`${ROOT_URL}/${type}`)
+      .then(data => {
+        dispatch(fetchingMultiple(resultAction, 200, data));
+      })
+      .catch(err => {
+        dispatch(fetchingMultiple(resultAction, err.response.status, {}));
+      });
+  };
+}
+
+// Gigs
+
 export const FETCHING_GIGS = 'FETCHING_GIGS';
 export const FETCH_GIGS_RESULT = 'FETCH_GIGS_SUCCESS';
 
-export function getGigs() {
-  return {
-    type: FETCHING_GIGS
-  };
-}
-
-export function getGigsResult(code, data) {
-  return {
-    type: FETCH_GIGS_RESULT,
-    code,
-    data
-  };
-}
-
 export function fetchGigs() {
-  return dispatch => {
-    dispatch(getGigs());
-    axios
-      .get(`${ROOT_URL}/gigs`)
-      .then(data => {
-        dispatch(getGigsResult(200, data));
-      })
-      .catch(err => {
-        dispatch(getGigsResult(err.response.status, {}));
-      });
-  };
+  return fetchMultiple('gig', FETCHING_GIGS, FETCH_GIGS_RESULT);
+}
+
+// Bands
+
+export const FETCHING_BANDS = 'FETCHING_BANDS';
+export const FETCH_BANDS_RESULT = 'FETCH_BANDS_SUCCESS';
+
+export function fetchBands() {
+  return fetchMultiple('band', FETCHING_BANDS, FETCH_BANDS_RESULT);
 }
