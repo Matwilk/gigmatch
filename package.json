@@ -8,8 +8,10 @@
     "concurrently": "^4.0.1",
     "cors": "^2.8.4",
     "elasticsearch": "^15.1.1",
+    "esm": "^3.0.84",
     "express": "^4.16.3",
     "lodash": "^4.17.11",
+    "lodash.merge": "^4.6.1",
     "mongoose": "^5.2.13",
     "prop-types": "^15.6.2",
     "react-redux": "^5.0.7",
@@ -27,7 +29,7 @@
   },
   "scripts": {
     "start-dev": "npm --prefix ./client start",
-    "start-server": "nodemon server.js",
+    "start-server": "nodemon -r esm server.js",
     "start": "concurrently \"yarn start-dev\" \"yarn start-server\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

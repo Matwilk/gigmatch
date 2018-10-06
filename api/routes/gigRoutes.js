@@ -1,22 +1,21 @@
 'use strict';
 
-module.exports = function(app) {
-  const gigs = require('../controllers/gigController');
-  const es = require('../controllers/esController');
+import express from 'express';
+import gigController from '../controllers/gigController';
 
-  // todoList Routes
-  app
-    .route('/api/gigs')
-    .get(gigs.list_all_gigs)
-    .post(gigs.create_a_gig);
+export const gigRouter = express.Router();
 
-  app
-    .route('/api/gig/:gigId')
-    .get(gigs.read_a_gig)
-    .put(gigs.update_a_gig)
-    .delete(gigs.delete_a_gig);
+gigRouter.param('id', gigController.findByParam);
 
-  app.route('/index/gigs/index').get(es.indexGigs);
+gigRouter
+  .route('/')
+  .get(gigController.getAll)
+  .post(gigController.createOne);
 
-  app.route('/index/gigs/search').get(es.searchGigs);
-};
+gigRouter
+  .route('/:id')
+  .get(gigController.getOne)
+  .put(gigController.updateOne)
+  .delete(gigController.deleteOne);
+
+//app.route('/index/gigs/search').get(es.searchGigs);
