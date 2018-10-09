@@ -5,8 +5,10 @@
 // CRUD via UI
 // UI library
 // Deploy remotel - remove hardcoded local urls
+// jsdoc
 
 import routes from './api/routes';
+import es from './api/controllers/esController';
 const cors = require('cors');
 const express = require('express'),
   app = express(),
@@ -24,7 +26,6 @@ const express = require('express'),
 //   origin,
 //   optionsSuccessStatus: 200
 // };
-
 // console.log(origin);
 
 // mongoose instance connection url connection
@@ -36,7 +37,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('/api', routes);
-
+app.get('/index/gigs/search', es.searchGigs);
 app.listen(PORT);
 
 /* eslint-disable no-console */

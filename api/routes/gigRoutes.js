@@ -17,5 +17,3 @@ gigRouter
   .get(gigController.getOne)
   .put(gigController.updateOne)
   .delete(gigController.deleteOne);
-
-//app.route('/index/gigs/search').get(es.searchGigs);

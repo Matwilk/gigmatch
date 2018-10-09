@@ -52,16 +52,20 @@ exports.indexGigs = function(req, res) {
           },
           (err, resp) => {
             if (err) {
+              /* eslint-disable no-console */
               console.log(
                 'Failed to index gig with id =' + gig._id + ', err = ' + err
               );
+              /* eslint-enable no-console */
             } else {
+              /* eslint-disable no-console */
               console.log(
                 'Successfully indexed gig with id =' +
                   gig._id +
                   ', resp = ' +
                   resp
               );
+              /* eslint-enable no-console */
             }
           }
         );
@@ -81,7 +85,9 @@ exports.searchGigs = function(req, res) {
     acc.push(match);
     return acc;
   }, []);
+  /* eslint-disable no-console */
   console.log('matches', matches);
+  /* eslint-enable no-console */
   client
     .search({
       index: 'gigs',
@@ -96,10 +102,14 @@ exports.searchGigs = function(req, res) {
     })
     .then(
       function(resp) {
+        /* eslint-disable no-console */
         console.log(resp.hits);
+        /* eslint-enable no-console */
       },
       function(err) {
+        /* eslint-disable no-console */
         console.trace(err.message);
+        /* eslint-enable no-console */
       }
     );
   res.status(204);
